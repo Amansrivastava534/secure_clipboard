@@ -1,3 +1,10 @@
+## 0.1.2
+
+- Added `hasText()` to check for clipboard content without reading it.
+- Added `getData()` as a standard way to retrieve clipboard text.
+- Added `localOnly` option for iOS to prevent Universal Clipboard sync.
+- Renamed changelog file to `CHANGELOG.md` for better pub.dev compatibility.
+
 ## 0.1.1
 
 - Fixed class modifiers in platform interface to allow extension.

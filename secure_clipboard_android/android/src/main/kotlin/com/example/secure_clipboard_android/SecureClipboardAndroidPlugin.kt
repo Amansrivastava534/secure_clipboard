@@ -44,6 +44,8 @@ class SecureClipboardAndroidPlugin: FlutterPlugin, MethodCallHandler, EventChann
       "copy" -> {
         val text = call.argument<String>("text")
         val autoClearAfter = call.argument<Int>("autoClearAfter")
+        // localOnly is ignored on Android as there is no system-level equivalent 
+        // that is standard across all variations of Android's Universal Clipboard.
         if (text != null) {
           copyToClipboard(text, autoClearAfter)
           result.success(null)
@@ -54,6 +56,13 @@ class SecureClipboardAndroidPlugin: FlutterPlugin, MethodCallHandler, EventChann
       "clear" -> {
         clearClipboard()
         result.success(null)
+      }
+      "hasText" -> {
+        result.success(clipboardManager.hasPrimaryClip() && 
+            clipboardManager.primaryClipDescription?.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) == true)
+      }
+      "getData" -> {
+        result.success(getClipboardText())
       }
       else -> {
         result.notImplemented()

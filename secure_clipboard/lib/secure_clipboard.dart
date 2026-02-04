@@ -14,13 +14,26 @@ class SecureClipboard {
   ///   obfuscates it in the system's clipboard preview UI.
   /// - On iOS, there is no system-level sensitive marking for the clipboard 
   ///   preview, but [autoClearAfter] can be used to minimize exposure.
-  static Future<void> copy(String text, {Duration? autoClearAfter}) {
-    return SecureClipboardPlatform.instance.copy(text, autoClearAfter: autoClearAfter);
+  /// [localOnly] optionally specifies that the clipboard content should only be 
+  /// available on the current device (iOS only). This prevents it from being 
+  /// synced via Universal Clipboard (Handoff).
+  static Future<void> copy(String text, {Duration? autoClearAfter, bool localOnly = false}) {
+    return SecureClipboardPlatform.instance.copy(text, autoClearAfter: autoClearAfter, localOnly: localOnly);
   }
 
   /// Clears the system clipboard.
   static Future<void> clear() {
     return SecureClipboardPlatform.instance.clear();
+  }
+
+  /// Returns true if the system clipboard contains text.
+  static Future<bool> hasText() {
+    return SecureClipboardPlatform.instance.hasText();
+  }
+
+  /// Retrieves text from the system clipboard.
+  static Future<String?> getData() {
+    return SecureClipboardPlatform.instance.getData();
   }
 
   /// A stream that emits clipboard content changes.

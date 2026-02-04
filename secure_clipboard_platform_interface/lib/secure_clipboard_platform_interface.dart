@@ -15,12 +15,20 @@ abstract base class SecureClipboardPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<void> copy(String text, {Duration? autoClearAfter}) {
+  Future<void> copy(String text, {Duration? autoClearAfter, bool localOnly = false}) {
     throw UnimplementedError('copy() has not been implemented.');
   }
 
   Future<void> clear() {
     throw UnimplementedError('clear() has not been implemented.');
+  }
+
+  Future<bool> hasText() {
+    throw UnimplementedError('hasText() has not been implemented.');
+  }
+
+  Future<String?> getData() {
+    throw UnimplementedError('getData() has not been implemented.');
   }
 
   Stream<String?> get onClipboardChanged {

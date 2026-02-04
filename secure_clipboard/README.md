@@ -4,9 +4,11 @@ A federated Flutter plugin for secure clipboard management. It provides features
 
 ## Features
 
-- **Sensitive Data Marking (Android 13+)**: Automatically marks copied content as sensitive, which instructs the system to obfuscate or hide the content in the clipboard preview UI.
+- **Sensitive Data Marking (Android 13+)**: Automatically marks copied content as sensitive, obfuscating it in the system's clipboard preview UI.
+- **Local-Only Copy (iOS)**: Prevent sensitive data from being synced to other devices via Universal Clipboard (iCloud).
 - **Auto-Clear**: Automatically clears the clipboard after a configurable `Duration`.
 - **Manual Clear**: Easily clear the system clipboard programmatically.
+- **Privacy-First Inspection**: Use `hasText()` to check for content without reading the actual text.
 - **Clipboard Observer**: A stream to listen for clipboard content changes (foreground only on iOS).
 - **Federated Architecture**: Modular design separating platform-specific implementations.
 
@@ -37,6 +39,22 @@ await SecureClipboard.copy(
   "temporary-token",
   autoClearAfter: Duration(seconds: 30),
 );
+
+// Copy with local-only (iOS) to prevent Universal Clipboard sync
+await SecureClipboard.copy(
+  "super-secret",
+  localOnly: true,
+);
+```
+
+### Checking and Getting Data
+
+```dart
+// Check if clipboard has text without reading it
+bool hasText = await SecureClipboard.hasText();
+
+// Retrieve text from clipboard
+String? data = await SecureClipboard.getData();
 ```
 
 ### Clearing the Clipboard
@@ -59,7 +77,9 @@ SecureClipboard.onClipboardChanged.listen((String? content) {
 On Android 13 (API 33) and above, the plugin uses `ClipDescription.EXTRA_IS_SENSITIVE`. This prevents the copied text from appearing in the system's clipboard confirmation overlay, protecting against "shoulder surfing".
 
 ### iOS
-iOS does not currently provide a way to mask the clipboard preview globally. To mitigate exposure, it is highly recommended to use the `autoClearAfter` feature for sensitive data to ensure it doesn't persist on the clipboard longer than necessary.
+iOS does not currently provide a way to mask the clipboard preview globally. To mitigate exposure:
+- Use the **`autoClearAfter`** feature to ensure it doesn't persist.
+- Use **`localOnly: true`** when copying to prevent the sensitive data from being synced to other devices via Universal Clipboard/iCloud.
 
 ### General
 Always remember that clipboard data is generally accessible to other apps on the system while it resides there. This plugin helps minimize the **visual exposure** and **persistence** of sensitive data.
@@ -69,6 +89,9 @@ Always remember that clipboard data is generally accessible to other apps on the
 | Feature | Android | iOS |
 |---|:---:|:---:|
 | Copy/Clear | ✅ | ✅ |
+| Get Data | ✅ | ✅ |
+| Has Text | ✅ | ✅ |
 | Change Listener | ✅ | ✅ (Foreground) |
 | Sensitive Marking | ✅ (API 33+) | ❌ (N/A) |
+| Local-Only (No Handoff) | ❌ (N/A) | ✅ |
 | Auto-Clear | ✅ | ✅ |

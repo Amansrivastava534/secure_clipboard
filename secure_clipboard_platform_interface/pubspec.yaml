@@ -1,5 +1,5 @@
 name: secure_clipboard_platform_interface
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/Amansrivastava534/secure_clipboard
 repository: https://github.com/Amansrivastava534/secure_clipboard
 description: Platform interface for the secure_clipboard Flutter plugin.

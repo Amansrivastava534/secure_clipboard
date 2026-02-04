@@ -27,7 +27,8 @@ public class SecureClipboardIosPlugin: NSObject, FlutterPlugin, FlutterStreamHan
       if let args = call.arguments as? [String: Any],
          let text = args["text"] as? String {
         let autoClearAfter = args["autoClearAfter"] as? Int
-        copyToClipboard(text: text, autoClearAfterMs: autoClearAfter)
+        let localOnly = args["localOnly"] as? Bool ?? false
+        copyToClipboard(text: text, autoClearAfterMs: autoClearAfter, localOnly: localOnly)
         result(nil)
       } else {
         result(FlutterError(code: "INVALID_ARGUMENT", message: "Text cannot be null", details: nil))
@@ -35,13 +36,21 @@ public class SecureClipboardIosPlugin: NSObject, FlutterPlugin, FlutterStreamHan
     case "clear":
       clearClipboard()
       result(nil)
+    case "hasText":
+      result(UIPasteboard.general.hasStrings)
+    case "getData":
+      result(UIPasteboard.general.string)
     default:
       result(FlutterMethodNotImplemented)
     }
   }
   
-  private func copyToClipboard(text: String, autoClearAfterMs: Int?) {
-    UIPasteboard.general.string = text
+  private func copyToClipboard(text: String, autoClearAfterMs: Int?, localOnly: Bool) {
+    if localOnly {
+      UIPasteboard.general.setItems([[UIPasteboard.typeBeforeFirstObject! : text]], options: [UIPasteboard.OptionsKey.localOnly: true])
+    } else {
+      UIPasteboard.general.string = text
+    }
     
     clearTimer?.invalidate()
     if let ms = autoClearAfterMs, ms > 0 {
