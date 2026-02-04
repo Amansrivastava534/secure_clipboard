@@ -1,6 +1,8 @@
 name: secure_clipboard
 description: Secure clipboard manager with auto-clear and background protection
 version: 0.0.1
+homepage: https://github.com/Amansrivastava534/secure_clipboard
+repository: https://github.com/Amansrivastava534/secure_clipboard
 
 environment:
   sdk: ">=2.17.0 <4.0.0"
@@ -17,12 +19,10 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  secure_clipboard_platform_interface:
-    path: ../secure_clipboard_platform_interface
-  secure_clipboard_android:
-    path: ../secure_clipboard_android
-  secure_clipboard_ios:
-    path: ../secure_clipboard_ios
+  secure_clipboard_platform_interface: ^0.0.1
+  secure_clipboard_android: ^0.0.1
+  secure_clipboard_ios: ^0.0.1
+  plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
   flutter_test:
