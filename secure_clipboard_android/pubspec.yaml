@@ -19,7 +19,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  secure_clipboard_platform_interface: ^0.0.1
+  secure_clipboard_platform_interface: ^0.0.2
   plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
