@@ -6,7 +6,6 @@
 
 - Migrated to Dart 3.
 - Updated SDK constraints and internal dependencies.
-- Adopted Dart 3 class modifiers in platform interface.
 
 ## 0.0.2
 - Added repository and homepage links

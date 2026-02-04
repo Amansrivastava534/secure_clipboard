@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'secure_clipboard_platform_interface.dart';
 
-class MethodChannelSecureClipboard extends SecureClipboardPlatform {
+base class MethodChannelSecureClipboard extends SecureClipboardPlatform {
   static const MethodChannel _methodChannel = MethodChannel('secure_clipboard/methods');
   static const EventChannel _eventChannel = EventChannel('secure_clipboard/events');
 

@@ -1,7 +1,7 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'method_channel_secure_clipboard.dart';
 
-abstract class SecureClipboardPlatform extends PlatformInterface {
+abstract base class SecureClipboardPlatform extends PlatformInterface {
   SecureClipboardPlatform() : super(token: _token);
 
   static final Object _token = Object();
